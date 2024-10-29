@@ -26,3 +26,7 @@ The goal is to implement CI/CD in a simple To-Do application built with HTML, CS
 
 4. **Run the app**:  
 `npm start`
+
+5. **Access the app**:  
+at `localhost:3000`
+
