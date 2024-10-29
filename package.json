@@ -1,0 +1,22 @@
+{
+    "name": "todo-app",
+    "version": "1.0.0",
+    "description": "Vanilla JS Todo Application",
+    "main": "index.js",
+    "scripts": {
+        "start": "lite-server --baseDir=src",
+        "test": "jest",
+        "test:watch": "jest --watch"
+    },
+    "devDependencies": {
+        "@babel/preset-env": "^7.22.0",
+        "@testing-library/dom": "^9.0.0",
+        "@testing-library/jest-dom": "^5.16.5",
+        "babel-jest": "^29.0.0",
+        "jest": "^29.0.0",
+        "jest-environment-jsdom": "^29.0.0"
+    },
+    "dependencies": {
+        "lite-server": "^2.6.1"
+    }
+}
