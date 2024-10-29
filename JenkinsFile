@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Get Code') {
+            steps {
+                git 'https://github.com/Rajat-Rulaniya/CI-CD-Todo-App.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Run tests') {
+            steps {
+                script {
+                    try {
+                        sh 'npm test'
+                    } catch (Exception e) {
+                        currentBuild.result = "Failure"
+                        error("Tests Failed!")
+                    }
+                }
+            }
+        }
+
+        stage('Build docker image') {
+            steps {
+                script {
+                    sh 'docker build -t todo-app:latest .'
+                }
+            }
+        }
+
+        stage('Run Docker Container') {
+            sh 'docker stop todo-app || true && docker rm todo-app || true'
+            sh 'docker run -d -p 3000:3000 --name todo-app todo-app:latest'
+        }
+    }
+
+    post {
+        failure {
+            script {
+                echo "Build Failed. Please check the logs."
+            }
+        }
+
+        success {
+            script {
+                echo "Build and deployment successful!"
+            }
+        }
+    }
+}
